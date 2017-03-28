@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">生活点滴</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="entry">entry</string>
+    <string name="life">Life Time</string>
+    <string name="lifestyle">属于你的生活点滴</string>
+    <string name="search">search</string>
+    <string name="changeTheme">changeTheme</string>
+</resources>

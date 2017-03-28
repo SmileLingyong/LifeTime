@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.smile.lifetime">
+
+    <!--  添加网络权限  -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <!--  android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen"  -->
+        <!--  设置隐藏状态栏，并在运行的时候一直隐藏  -->
+
+        <activity android:name=".EntryActivity"
+            android:label="@string/app_name"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+
+            android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen"
+            android:alwaysRetainTaskState="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".MainActivity"
+            android:theme="@style/MainActivityTheme">
+        </activity>
+
+        <activity android:name=".NewsActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+        </activity>
+
+
+    </application>
+
+</manifest>
