@@ -58,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
                         mDrawerLayout.closeDrawers();
                         break;
                     case R.id.nav_aboutme:
+                        Intent intent_aboutme = new Intent(MainActivity.this, AboutmeActivity.class);
+                        startActivity(intent_aboutme);
                         mDrawerLayout.closeDrawers();
                         break;
                     case R.id.nav_setting:

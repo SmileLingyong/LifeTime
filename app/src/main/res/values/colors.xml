@@ -15,4 +15,14 @@
     <color name="colorAccent">#6200ea</color>
 
     <color name="editTextColor">#2c2c2c</color>
+
+    <!--  about me useing color   -->
+    <color name="white">#ffffff</color>
+    <color name="transparent">#00000000</color>
+    <color name="white_66">#66ffffff</color>
+    <color name="black">#000000</color>
+    <color name="black_66">#66000000</color>
+    <color name="background">#f2f2f2</color>
+    <color name="text_content_color">#333333</color>
+    <!--  about me useing color   -->
 </resources>

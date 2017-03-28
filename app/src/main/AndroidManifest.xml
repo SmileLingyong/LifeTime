@@ -38,6 +38,10 @@
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
         </activity>
 
+        <activity android:name=".AboutmeActivity">
+
+        </activity>
+
 
     </application>
 

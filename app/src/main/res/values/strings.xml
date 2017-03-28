@@ -7,4 +7,19 @@
     <string name="lifestyle">属于你的生活点滴</string>
     <string name="search">search</string>
     <string name="changeTheme">changeTheme</string>
+
+
+    <string name="project_introduction">\t\t\t\t 生活点滴采用Google 官方推出的Material Design 设计风格，启动界面采用渐入式动画，随机显示引导图片。
+        日记数据使用SQLite轻量级数据库进行本地存储，使侧滑栏展示主要功能：我的日记，每日一文，主题更换，关于作者，设置这几项功能。
+        我的日记用于用户平时记录自己的生活点滴，并使用百度API获取用户当时所在的位置，显示在日记中，将日记内容、时间、地点共同存储在本地数据库中。
+        该应用具备日记的基本功能：添加日记、查看日记、修改日记、删除日记等。采用OkHttp开源库，使用必应API数据实现每日一图。
+    </string>
+
+    <string name="project_thanks">\t\t\t\t 项目参考了bxbxbai的知乎专栏开源项目 <a href="https://github.com/bxbxbai/ZhuanLan">ZhuanLan</a> ，并使用了必应API，百度API，
+        感谢一直在为开源做贡献的你们。
+    </string>
+
+    <string name="my_blog">\t\t\t\t GitHub 地址 <a href="https://github.com/waiting123">https://github.com/waiting123</a> 自己还要更加努力才行！</string>
+    <string name="my_gmail">\t\t\t\t 我的邮箱: smilelingyong@gmail.com</string>
+
 </resources>
