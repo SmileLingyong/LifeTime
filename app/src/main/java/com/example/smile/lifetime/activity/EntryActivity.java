@@ -1,4 +1,4 @@
-package com.example.smile.lifetime;
+package com.example.smile.lifetime.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.WindowManager;
 import android.widget.ImageView;
+
+import com.example.smile.lifetime.R;
 
 import java.util.Random;
 

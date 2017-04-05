@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar_note_detail"
+        layout="@layout/toolbar_title_center" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="14dp"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/note_detail_extext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="4dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@null"
+                        android:gravity="top"
+                        android:text=" "
+                        android:textColor="@color/editTextColor"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/note_detail_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginTop="6dp"
+                        android:gravity="end"
+                        android:lineSpacingExtra="4dp"
+                        android:textColor="#9d9d9d"
+                        android:textSize="@dimen/abc_text_size_small_material"
+                        tool:text="2017-3-29 21:41" />
+                </LinearLayout>
+            </ScrollView>
+    </FrameLayout>
+
+</LinearLayout>

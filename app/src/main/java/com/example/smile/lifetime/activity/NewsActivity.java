@@ -1,4 +1,4 @@
-package com.example.smile.lifetime;
+package com.example.smile.lifetime.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -13,12 +13,13 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.example.smile.lifetime.R;
 
 import java.io.IOException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
-import util.HttpUtil;
+import com.example.smile.lifetime.util.HttpUtil;
 
 /**
  * Created by lly54 on 2017/3/27.

@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.smile.lifetime">
 
     <!--  添加网络权限  -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -12,10 +22,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="VMN2dYxtotPa73bzTvYlz1CbFVBZ1t2C" />
+
         <!--  android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen"  -->
         <!--  设置隐藏状态栏，并在运行的时候一直隐藏  -->
 
-        <activity android:name=".EntryActivity"
+        <activity android:name=".activity.EntryActivity"
             android:label="@string/app_name"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
@@ -29,19 +43,34 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity"
+        <activity android:name=".activity.MainActivity"
             android:theme="@style/MainActivityTheme">
         </activity>
 
-        <activity android:name=".NewsActivity"
+        <activity
+            android:name=".activity.NoteEditActivity"
+            android:parentActivityName=".activity.MainActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateVisible"
+            tools:targetApi="jelly_bean">
+        </activity>
+
+        <activity android:name=".activity.LookDiaryActivity"
+            android:parentActivityName=".activity.MainActivity"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
+
+
+        <activity android:name=".activity.NewsActivity"
             android:launchMode="singleTask"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
         </activity>
 
-        <activity android:name=".AboutmeActivity">
+        <activity android:name=".activity.AboutmeActivity">
 
         </activity>
 
+        <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
+        </service>
 
     </application>
 

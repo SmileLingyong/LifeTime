@@ -1,4 +1,4 @@
-package com.example.smile.lifetime;
+package com.example.smile.lifetime.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.smile.lifetime.R;
 
 /**
  * Created by lly54 on 2017/3/28.
