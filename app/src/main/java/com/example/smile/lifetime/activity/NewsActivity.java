@@ -11,15 +11,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.smile.lifetime.R;
+import com.example.smile.lifetime.util.HttpUtil;
 
 import java.io.IOException;
+import java.util.Calendar;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
-import com.example.smile.lifetime.util.HttpUtil;
 
 /**
  * Created by lly54 on 2017/3/27.
@@ -30,9 +33,13 @@ public class NewsActivity extends AppCompatActivity {
     private static final int ANIMATION_DURATION = 4000;
     private static final float SCALE_END = 1.13F;
     private ImageView bingPicImg;
+    private TextView daytv;
+    private TextView weektv;
+    private TextView monthtv;
+
 
     @Override
-    protected void onCreate( Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         //隐藏状态栏
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
@@ -40,10 +47,21 @@ public class NewsActivity extends AppCompatActivity {
 
         //看缓存中是否有图片
         bingPicImg = (ImageView) findViewById(R.id.everyday_news);
+        daytv = (TextView) findViewById(R.id.everyday_news_day);
+        weektv = (TextView) findViewById(R.id.everyday_news_week);
+        monthtv = (TextView) findViewById(R.id.everyday_news_month);
 
+        //注意:这里要使用的是import java.util.Calendar; 而不是 import android.icu.util.Calendar;
+        //注意：这里获取的月份要 + 1 才是正确的
+        Calendar c = Calendar.getInstance();
+
+        weektv.setText(setWeek(c.get(Calendar.DAY_OF_WEEK) - 1)); //这里 - 1 是自己加的，好像也有问题
+        monthtv.setText(setMonth(c.get(Calendar.MONTH) + 1));
+
+
+        //获取缓存中的图片
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String bingPic = prefs.getString("bing_pic", null);
-
 
 
         if (bingPic != null) {
@@ -102,4 +120,80 @@ public class NewsActivity extends AppCompatActivity {
         });
 
     }
+
+
+    //对应 周几 英文
+    public String setWeek(int week) {
+        String weekNow = "";
+        switch (week) {
+            case 1:
+                weekNow = "Monday";
+                break;
+            case 2:
+                weekNow = "Tuesday";
+                break;
+            case 3:
+                weekNow = "Wednesday";
+                break;
+            case 4:
+                weekNow = "Thursday";
+                break;
+            case 5:
+                weekNow = "Friday";
+                break;
+            case 6:
+                weekNow = "Saturday";
+                break;
+            case 7:
+                weekNow = "Sunday";
+                break;
+        }
+        return weekNow;
+    }
+
+    //对应 月份 英文
+    public String setMonth(int month) {
+        String monthNow = "";
+        switch (month) {
+            case 1:
+                monthNow = "January";
+                break;
+            case 2:
+                monthNow = "February";
+                break;
+            case 3:
+                monthNow = "March";
+                break;
+            case 4:
+                monthNow = "April";
+                break;
+            case 5:
+                monthNow = "May";
+                break;
+            case 6:
+                monthNow = "June";
+                break;
+            case 7:
+                monthNow = "July";
+                break;
+            case 8:
+                monthNow = "August";
+                break;
+            case 9:
+                monthNow = "September";
+                break;
+            case 10:
+                monthNow = "October";
+                break;
+            case 11:
+                monthNow = "November";
+                break;
+            case 12:
+                monthNow = "December";
+                break;
+        }
+        return monthNow;
+    }
+
+
 }

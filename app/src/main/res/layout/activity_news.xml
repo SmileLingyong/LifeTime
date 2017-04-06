@@ -12,4 +12,36 @@
         android:fitsSystemWindows="true"
         android:scaleType="centerCrop" />
 
+    <TextView
+        android:id="@+id/everyday_news_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:text="06"
+        android:textColor="@color/white"
+        android:textSize="60dp"
+        android:typeface="serif" />
+
+    <TextView
+        android:id="@+id/everyday_news_week"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="50dp"
+        android:text="Thursday"
+        android:textColor="@color/white"
+        android:textSize="12dp"
+        android:typeface="serif" />
+
+    <TextView
+        android:id="@+id/everyday_news_month"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="30dp"
+        android:text="April"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        android:typeface="serif" />
+
 </FrameLayout>
