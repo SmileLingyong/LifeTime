@@ -155,17 +155,17 @@ public class LookDiaryActivity extends AppCompatActivity {
 
         ContentValues cv = new ContentValues();
         cv.put(NotesDB.CONTENT, detail_editText.getText().toString());
-        cv.put(NotesDB.TIME, getTime().toString());
+//        cv.put(NotesDB.TIME, getTime().toString());   //这里点击查看日记后，不需要重新修改时间
 
         dbWriter.update(NotesDB.TABLE_NAME, cv, "_id=?", new String[]{Integer.toString(DEFAULT_INT_ID)});
     }
 
-    public String getTime() {
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm  yyyy.MM.dd");
-        Date date = new Date();
-        String str = format.format(date);
-        return str;
-    }
+//    public String getTime() {
+//        SimpleDateFormat format = new SimpleDateFormat("HH:mm  yyyy.MM.dd");
+//        Date date = new Date();
+//        String str = format.format(date);
+//        return str;
+//    }
 
     @Override
     public void onBackPressed() {
