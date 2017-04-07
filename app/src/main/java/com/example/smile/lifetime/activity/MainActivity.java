@@ -26,6 +26,7 @@ import android.widget.SearchView;
 
 import com.example.smile.lifetime.R;
 import com.example.smile.lifetime.adapter.MyAdapter;
+import com.example.smile.lifetime.backup.BackupTask;
 import com.example.smile.lifetime.db.NotesDB;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -96,6 +97,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         break;
                     case R.id.nav_setting:
                         mDrawerLayout.closeDrawers();
+                        dataBackup();
                         break;
                     default:
                         mDrawerLayout.closeDrawers();
@@ -198,6 +200,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getWindow().setWindowAnimations(R.style.WindowAnimationFadeInOut);
         recreate();
     }
+
+    private void dataRecover() {
+        new BackupTask(this).execute("restoreDatabase");
+    }
+
+    private void dataBackup() {
+        new BackupTask(this).execute("backupDatabase");
+    }
+
+
 
     public void selectDB() {
         cursor = dbReader.query(NotesDB.TABLE_NAME, null, null, null, null, null, NotesDB.ID + " DESC"); //通过id降序排列

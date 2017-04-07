@@ -55,8 +55,9 @@ public class NewsActivity extends AppCompatActivity {
         //注意：这里获取的月份要 + 1 才是正确的
         Calendar c = Calendar.getInstance();
 
+        daytv.setText(setDay(c.get(Calendar.DAY_OF_MONTH)));
         weektv.setText(setWeek(c.get(Calendar.DAY_OF_WEEK) - 1)); //这里 - 1 是自己加的，好像也有问题
-        monthtv.setText(setMonth(c.get(Calendar.MONTH) + 1));
+        monthtv.setText(setMonth(c.get(Calendar.MONTH) + 1));     //注意：这里获取的月份要 + 1 才是正确的
 
 
         //获取缓存中的图片
@@ -119,6 +120,15 @@ public class NewsActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    //对应这个月第几天
+    public String setDay(int day) {
+        if (day >= 1 && day <= 9) {
+            return "0" + day;
+        } else {
+            return String.valueOf(day);
+        }
     }
 
 
