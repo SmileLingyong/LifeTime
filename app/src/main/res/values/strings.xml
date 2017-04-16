@@ -10,6 +10,7 @@
     <string name="delete">delete</string>
     <string name="change_theme">change theme</string>
     <string name="save">save</string>
+    <string name="news_save">\t\t保存图片</string>
 
 
     <string name="project_introduction">\t\t\t\t 生活点滴采用Google 官方推出的Material Design 设计风格，启动界面采用渐入式动画，随机显示引导图片。

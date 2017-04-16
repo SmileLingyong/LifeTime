@@ -5,10 +5,14 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,15 +20,19 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.smile.lifetime.R;
+import com.example.smile.lifetime.backup.BackupTask;
 import com.example.smile.lifetime.util.HttpUtil;
 import com.r0adkll.slidr.Slidr;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
 
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import rebus.bottomdialog.BottomDialog;
 
 /**
  * Created by lly54 on 2017/3/27.
@@ -34,10 +42,13 @@ public class NewsActivity extends AppCompatActivity {
 
     private static final int ANIMATION_DURATION = 4000;
     private static final float SCALE_END = 1.13F;
+    private String bingPic;     //用于保存每天图片的地址
     private ImageView bingPicImg;
     private TextView daytv;
     private TextView weektv;
     private TextView monthtv;
+    private BottomDialog dialog;
+
 
 
     @Override
@@ -76,6 +87,36 @@ public class NewsActivity extends AppCompatActivity {
             loadBingPic();
         }
 
+        saveImage(); //点击图片实现保存图片
+
+    }
+
+    private void saveImage() {
+        bingPicImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                dialog = new BottomDialog(NewsActivity.this);
+//                dialog.title(R.string.news_save);
+                dialog.canceledOnTouchOutside(true);
+                dialog.cancelable(true);
+                dialog.inflateMenu(R.menu.menu_news_save);
+                dialog.setOnItemSelectedListener(new BottomDialog.OnItemSelectedListener() {
+                    @Override
+                    public boolean onItemSelected(int id) {
+                        switch (id) {
+                            case R.id.note_news_action_save:
+                                new BackupTask(NewsActivity.this, bingPicImg, bingPic).execute("savePic");
+                                Toast.makeText(NewsActivity.this, "图片保存于 Life_Time_Down_Pic 目录下", Toast.LENGTH_SHORT).show();
+                                return true;
+                            default:
+                                return false;
+                        }
+                    }
+                });
+                dialog.show();
+            }
+        });
+
     }
 
     private void loadBingPic() {
@@ -83,7 +124,7 @@ public class NewsActivity extends AppCompatActivity {
         HttpUtil.sendOkHttpRequest(requestBingPic, new Callback() {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                final String bingPic = response.body().string();
+                bingPic = response.body().string();
                 SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(NewsActivity.this).edit();
                 editor.putString("bing_pic", bingPic);
                 Log.d("URL", "bing_pic");
@@ -104,6 +145,39 @@ public class NewsActivity extends AppCompatActivity {
         });
     }
 
+    private void svaeBitmap(View view, String filePath) {
+        // 创建对应大小的bitmap
+        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(),
+                Bitmap.Config.RGB_565);
+        Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+
+        //存储
+        FileOutputStream outStream = null;
+        File file=new File(filePath);
+        if(file.isDirectory()){//如果是目录不允许保存
+            return;
+        }
+        try {
+            outStream = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+            outStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                bitmap.recycle();
+                if(outStream!=null){
+                    outStream.close();
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
 
     //设置每日一图动画效果
     private void animateImage() {
@@ -117,12 +191,10 @@ public class NewsActivity extends AppCompatActivity {
 
         set.addListener(new AnimatorListenerAdapter() {
             @Override
-            public void onAnimationEnd(Animator animation) {
+            public void onAnimationEnd(Animator animation) {    //设置动画结束事件
 
-                NewsActivity.this.finish();
             }
         });
-
     }
 
     //对应这个月第几天
