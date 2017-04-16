@@ -1,6 +1,8 @@
 package com.example.smile.lifetime.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -23,6 +25,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.example.smile.lifetime.R;
 import com.example.smile.lifetime.adapter.MyAdapter;
@@ -88,7 +91,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         break;
                     case R.id.nav_theme:
                         ChangeTheme();
-//                        mDrawerLayout.closeDrawers();
                         break;
                     case R.id.nav_aboutme:
                         Intent intent_aboutme = new Intent(MainActivity.this, AboutmeActivity.class);
@@ -96,8 +98,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         mDrawerLayout.closeDrawers();
                         break;
                     case R.id.nav_setting:
+                        backUpFunction();
                         mDrawerLayout.closeDrawers();
-                        dataBackup();
                         break;
                     default:
                         mDrawerLayout.closeDrawers();
@@ -201,15 +203,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         recreate();
     }
 
-    private void dataRecover() {
-        new BackupTask(this).execute("restoreDatabase");
+    private void backUpFunction() { //备份与恢复功能
+        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+        dialog.setTitle("备份与恢复");
+        dialog.setMessage("请您选择~");
+        dialog.setCancelable(true);
+        dialog.setNegativeButton("备份", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dataBackup();
+                Toast.makeText(MainActivity.this, "备份成功", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        dialog.setPositiveButton("恢复", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dataRecover();
+                Toast.makeText(MainActivity.this, "恢复成功", Toast.LENGTH_SHORT).show();
+            }
+        });
+        dialog.show();
     }
 
-    private void dataBackup() {
+    private void dataBackup() {     //数据库文件备份
         new BackupTask(this).execute("backupDatabase");
+        selectDB();
     }
 
-
+    private void dataRecover() {     //数据库文件恢复
+        new BackupTask(this).execute("restoreDatabase");
+        selectDB();
+        getWindow().setWindowAnimations(R.style.WindowAnimationFadeInOut);  //设置动画效果
+        recreate();
+    }
 
     public void selectDB() {
         cursor = dbReader.query(NotesDB.TABLE_NAME, null, null, null, null, null, NotesDB.ID + " DESC"); //通过id降序排列

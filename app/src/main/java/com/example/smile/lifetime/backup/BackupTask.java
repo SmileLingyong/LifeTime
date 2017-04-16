@@ -28,22 +28,20 @@ public class BackupTask extends AsyncTask<String, Void, Integer> {
 
     @Override
     protected Integer doInBackground(String... params) {
-        //获得正在使用的数据库路径，默认路径是 /data/data/(包名)/database/*.db
-        File dbFile = mContext.getDatabasePath(Environment.getExternalStorageDirectory().getAbsolutePath() + "/data/data/com.example.smile.lifetime/databases/notes.db");
-        Log.d("Tag_StorageDirectory", Environment.getExternalStorageDirectory().getAbsolutePath());
+        //获得正在使用的数据库路径，默认路径是 /data/data/(包名)/database/数据库名（注意这里数据库名不用加后缀）
+        File dbFile = mContext.getDatabasePath("/data/data/com.example.smile.lifetime/databases/notes");
+        Log.d("Tag_StorageDirectory", Environment.getExternalStorageDirectory().getAbsolutePath()); //获取SD卡路径
 
         // 新建一个 AAA 目录
-        File exportDir = new File(Environment.getExternalStorageDirectory(), "AAA");
+        File exportDir = new File(Environment.getExternalStorageDirectory(), "Life_Time_Backup");
         // 如果该目录不存在，则创建该目录
         if (!exportDir.exists()) {
             exportDir.mkdir();
         }
         // 在 AAA 目录下创建 notes.db文件
         File backup = new File(exportDir, dbFile.getName());
-        Log.d("Tag_backupName", dbFile.getName());   //要备份的文件名
 
         String command = params[0];
-        Log.d("Tag_command", command);
         // 根据传入的 要求执行 备份 或 恢复
         if (command.equals(COMMAND_BACKUP)) {
             try {
