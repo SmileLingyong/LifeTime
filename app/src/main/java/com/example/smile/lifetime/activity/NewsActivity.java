@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.smile.lifetime.R;
 import com.example.smile.lifetime.util.HttpUtil;
+import com.r0adkll.slidr.Slidr;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -45,6 +46,7 @@ public class NewsActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
+        Slidr.attach(this);
 
         //看缓存中是否有图片
         bingPicImg = (ImageView) findViewById(R.id.everyday_news);
