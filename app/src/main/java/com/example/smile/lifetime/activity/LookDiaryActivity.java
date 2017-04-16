@@ -1,7 +1,9 @@
 package com.example.smile.lifetime.activity;
 
+import android.app.AlertDialog;
 import android.app.TaskStackBuilder;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
@@ -136,8 +138,25 @@ public class LookDiaryActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.note_detail_delete:
-                deleteDate();
-                finish();
+                AlertDialog.Builder dialog = new AlertDialog.Builder(LookDiaryActivity.this);
+                dialog.setTitle("删除日记");
+                dialog.setMessage("真的要删除我么(＞﹏＜)");
+                dialog.setCancelable(false);
+                dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteDate();
+                        finish();
+                    }
+                });
+
+                dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                dialog.show();
+
                 return true;
 
             default:

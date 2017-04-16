@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.smile.lifetime.R;
@@ -56,9 +57,8 @@ public class NewsActivity extends AppCompatActivity {
         Calendar c = Calendar.getInstance();
 
         daytv.setText(setDay(c.get(Calendar.DAY_OF_MONTH)));
-        weektv.setText(setWeek(c.get(Calendar.DAY_OF_WEEK) - 1)); //这里 - 1 是自己加的，好像也有问题
+        weektv.setText(setWeek(c.get(Calendar.DAY_OF_WEEK)));     //注意：这里返回的数据1-7 表示 日-六
         monthtv.setText(setMonth(c.get(Calendar.MONTH) + 1));     //注意：这里获取的月份要 + 1 才是正确的
-
 
         //获取缓存中的图片
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -116,6 +116,7 @@ public class NewsActivity extends AppCompatActivity {
         set.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
+
                 NewsActivity.this.finish();
             }
         });
@@ -137,25 +138,25 @@ public class NewsActivity extends AppCompatActivity {
         String weekNow = "";
         switch (week) {
             case 1:
-                weekNow = "Monday";
+                weekNow = "Sunday";
                 break;
             case 2:
-                weekNow = "Tuesday";
+                weekNow = "Monday";
                 break;
             case 3:
-                weekNow = "Wednesday";
+                weekNow = "Tuesday";
                 break;
             case 4:
-                weekNow = "Thursday";
+                weekNow = "Wednesday";
                 break;
             case 5:
-                weekNow = "Friday";
+                weekNow = "Thursday";
                 break;
             case 6:
-                weekNow = "Saturday";
+                weekNow = "Friday";
                 break;
             case 7:
-                weekNow = "Sunday";
+                weekNow = "Saturday";
                 break;
         }
         return weekNow;

@@ -30,36 +30,38 @@ public class BackupTask extends AsyncTask<String, Void, Integer> {
     protected Integer doInBackground(String... params) {
         //获得正在使用的数据库路径，默认路径是 /data/data/(包名)/database/*.db
         File dbFile = mContext.getDatabasePath(Environment.getExternalStorageDirectory().getAbsolutePath() + "/data/data/com.example.smile.lifetime/databases/notes.db");
-        Log.d("Tag", Environment.getExternalStorageDirectory().getAbsolutePath());
+        Log.d("Tag_StorageDirectory", Environment.getExternalStorageDirectory().getAbsolutePath());
 
-        File exportDir = new File(Environment.getExternalStorageDirectory(), "data");
-
+        // 新建一个 AAA 目录
+        File exportDir = new File(Environment.getExternalStorageDirectory(), "AAA");
+        // 如果该目录不存在，则创建该目录
         if (!exportDir.exists()) {
             exportDir.mkdir();
         }
-
+        // 在 AAA 目录下创建 notes.db文件
         File backup = new File(exportDir, dbFile.getName());
-        Log.d("TagbackupName", dbFile.getName());   //要备份的文件名
+        Log.d("Tag_backupName", dbFile.getName());   //要备份的文件名
 
         String command = params[0];
-        Log.d("Tagcommand", command);
+        Log.d("Tag_command", command);
+        // 根据传入的 要求执行 备份 或 恢复
         if (command.equals(COMMAND_BACKUP)) {
             try {
                 backup.createNewFile();
                 fileCopy(dbFile, backup);
-                return Log.d("Tagbackup", "ok");
+                return Log.d("Tag_backup", "ok");
             } catch (Exception e) {
                 e.printStackTrace();
-                return Log.d("Tagbackup", "fail");
+                return Log.d("Tag_backup", "fail");
             }
         } else if (command.equals(COMMAND_RESTORE)) {
             try {
                 fileCopy(backup, dbFile);
-                return Log.d("Tagrestore", "success");
+                return Log.d("Tag_restore", "success");
 
             } catch (Exception e) {
                 e.printStackTrace();
-                return Log.d("Tagrestore", "fail");
+                return Log.d("Tag_restore", "fail");
             }
         } else {
             return null;
