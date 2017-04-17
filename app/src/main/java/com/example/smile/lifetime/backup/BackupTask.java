@@ -121,7 +121,7 @@ public class BackupTask extends AsyncTask<String, Void, Integer> {
 
         //存储
         FileOutputStream outStream = null;
-        // 在 Life_Time_Backup 目录下创建 图片名.png 文件
+        // 在 Life_Time_Backup 目录下创建 当前时间.png 文件
         File file = new File(exportDirSavePic, getCharacterAndNumber() + ".png");
         try {
             outStream = new FileOutputStream(file);
@@ -141,6 +141,7 @@ public class BackupTask extends AsyncTask<String, Void, Integer> {
         }
     }
 
+    //获取系统当前时间
     public static String getCharacterAndNumber() {
         String rel="";
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");

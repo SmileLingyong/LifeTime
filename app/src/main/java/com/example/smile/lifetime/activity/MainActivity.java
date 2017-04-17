@@ -23,11 +23,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.smile.lifetime.R;
+import com.example.smile.lifetime.activity.login.LoginActivity;
 import com.example.smile.lifetime.adapter.MyAdapter;
 import com.example.smile.lifetime.backup.BackupTask;
 import com.example.smile.lifetime.db.NotesDB;
@@ -75,6 +77,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         }
 
+        //设置点击头像事件
+        //这样做就相当于在navView上又天剑了一个header layout布局，所以这样写的话，我们需要在布局文件中把
+        //app:headerLayout="@layout/nav_header"去掉
+        View navHeaderView = navView.inflateHeaderView(R.layout.nav_header);
+        ImageView headLogin = (ImageView) navHeaderView.findViewById(R.id.head_login_image);
+        headLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent_login = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent_login);
+            }
+        });
+
+
         navView.setCheckedItem(R.id.nav_home);
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -82,12 +98,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 switch (item.getItemId()) {
                     case R.id.nav_home:
                         mDrawerLayout.closeDrawers();
-
                         break;
                     case R.id.nav_news:
                         mDrawerLayout.closeDrawers();
-                        Intent intent = new Intent(MainActivity.this, NewsActivity.class);
-                        startActivity(intent);
+                        Intent intent_news = new Intent(MainActivity.this, NewsActivity.class);
+                        startActivity(intent_news);
                         break;
                     case R.id.nav_theme:
                         ChangeTheme();
@@ -137,6 +152,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.add_button:
                 Intent intent = new Intent(MainActivity.this, NoteEditActivity.class);
                 startActivity(intent);
+                break;
         }
     }
 

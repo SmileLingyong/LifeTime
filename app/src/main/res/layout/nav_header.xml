@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/icon_image"
+        android:id="@+id/head_login_image"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginLeft="16dp"
@@ -18,7 +18,7 @@
         android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/icon_image"
+        android:layout_below="@id/head_login_image"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:text="心底的秋叶"

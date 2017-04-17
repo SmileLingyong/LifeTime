@@ -11,6 +11,11 @@
     <string name="change_theme">change theme</string>
     <string name="save">save</string>
     <string name="news_save">\t\t保存图片</string>
+    <string name="login_number_hiti">请输入您的账号</string>
+    <string name="login_password_hiti">请输入您的密码</string>
+    <string name="login_button_text">登录</string>
+    <string name="login_forget_pwd">忘记密码</string>
+    <string name="login_register">注册新用户</string>
 
 
     <string name="project_introduction">\t\t\t\t 生活点滴采用Google 官方推出的Material Design 设计风格，启动界面采用渐入式动画，随机显示引导图片。

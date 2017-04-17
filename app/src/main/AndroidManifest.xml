@@ -49,6 +49,10 @@
             android:theme="@style/MainActivityTheme">
         </activity>
 
+        <activity android:name=".activity.login.LoginActivity"
+            android:parentActivityName=".activity.MainActivity">
+        </activity>
+
         <activity
             android:name=".activity.NoteEditActivity"
             android:parentActivityName=".activity.MainActivity"
