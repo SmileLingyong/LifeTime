@@ -99,6 +99,10 @@ public class NoteEditActivity extends AppCompatActivity {
 
     //初始化定位功能
     public void initLocation() {
+        // 创建了一个LocationClient的实例，
+        // 调用LocationClient的registerLocationListerner()方法来注册一个定位监听器，当获取到位置信息的时候，就会回调这个定位监听器。
+        // 创建一个空的List集合，然后依次判断申请的3个权限有没有被授权，如果没有被授权就添加到List集合中，最后将List转换成数组，
+        // 再调用ActivityCompat.requestPermissions()方法一次性申请。
         mLocationClient = new LocationClient(getApplicationContext());
         mLocationClient.registerLocationListener(new MyLocationListener());
         List<String> permissionList = new ArrayList<>();
@@ -121,10 +125,10 @@ public class NoteEditActivity extends AppCompatActivity {
 
     //设置地理位置定位
     private void requestLocation() {
-        LocationClientOption option = new LocationClientOption();
-        option.setIsNeedAddress(true);
+        LocationClientOption option = new LocationClientOption(); //创建一个LocationClientOption()对象 option
+        option.setIsNeedAddress(true);  //设置需要街道信息
         mLocationClient.setLocOption(option);
-        mLocationClient.start();
+        mLocationClient.start();    //开始定位功能
     }
 
 

@@ -70,8 +70,6 @@ public class EntryActivity extends Activity {
         AnimatorSet set = new AnimatorSet();
         //设置动画的长度：通过上面定义的animatorX，animatorY来渐变长度
         set.setDuration(ANIMATION_DURATION).play(animatorX).with(animatorY);
-
-
         set.start();
 
         set.addListener(new AnimatorListenerAdapter() {

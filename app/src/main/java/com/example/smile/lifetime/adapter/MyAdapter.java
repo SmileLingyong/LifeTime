@@ -74,7 +74,7 @@ public class MyAdapter  extends BaseAdapter {
         return view;
     }
 
-
+    // 创建一个匿名内部类的方式进行来优化，使得不用每次都重复进行绑定布局等
     class ViewHolder {
         TextView contenttv;
         TextView timetv;
@@ -82,6 +82,5 @@ public class MyAdapter  extends BaseAdapter {
         ImageView imageTime;
         ImageView imageLocal;
     }
-
 
 }

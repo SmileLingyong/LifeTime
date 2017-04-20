@@ -49,34 +49,36 @@ public class NewsActivity extends AppCompatActivity {
     private TextView monthtv;
     private BottomDialog dialog;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //隐藏状态栏
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
-        Slidr.attach(this);
+        Slidr.attach(this);     //手势滑动切换Activity库
 
-        //看缓存中是否有图片
+        initView();  //初始化整个页面
+        saveImage(); //点击图片实现保存图片
+    }
+
+    private void initView() {
+        //绑定布局资源
         bingPicImg = (ImageView) findViewById(R.id.everyday_news);
         daytv = (TextView) findViewById(R.id.everyday_news_day);
         weektv = (TextView) findViewById(R.id.everyday_news_week);
         monthtv = (TextView) findViewById(R.id.everyday_news_month);
 
+        //初始化 当前日期
         //注意:这里要使用的是import java.util.Calendar; 而不是 import android.icu.util.Calendar;
         //注意：这里获取的月份要 + 1 才是正确的
         Calendar c = Calendar.getInstance();
-
         daytv.setText(setDay(c.get(Calendar.DAY_OF_MONTH)));
         weektv.setText(setWeek(c.get(Calendar.DAY_OF_WEEK)));     //注意：这里返回的数据1-7 表示 日-六
         monthtv.setText(setMonth(c.get(Calendar.MONTH) + 1));     //注意：这里获取的月份要 + 1 才是正确的
 
-        //获取缓存中的图片
+        //使用缓存来存储访问的每日一图资源
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String bingPic = prefs.getString("bing_pic", null);
-
 
         if (bingPic != null) {
             loadBingPic();
@@ -86,8 +88,6 @@ public class NewsActivity extends AppCompatActivity {
         } else {
             loadBingPic();
         }
-
-        saveImage(); //点击图片实现保存图片
 
     }
 
@@ -119,7 +119,7 @@ public class NewsActivity extends AppCompatActivity {
 
     }
 
-    private void loadBingPic() {
+    private void loadBingPic() {    //使用OKHttp访问图片源
         String requestBingPic = "http://guolin.tech/api/bing_pic";
         HttpUtil.sendOkHttpRequest(requestBingPic, new Callback() {
             @Override
@@ -144,40 +144,6 @@ public class NewsActivity extends AppCompatActivity {
             }
         });
     }
-
-    private void svaeBitmap(View view, String filePath) {
-        // 创建对应大小的bitmap
-        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(),
-                Bitmap.Config.RGB_565);
-        Canvas canvas = new Canvas(bitmap);
-        view.draw(canvas);
-
-        //存储
-        FileOutputStream outStream = null;
-        File file=new File(filePath);
-        if(file.isDirectory()){//如果是目录不允许保存
-            return;
-        }
-        try {
-            outStream = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
-            outStream.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }finally {
-            try {
-                bitmap.recycle();
-                if(outStream!=null){
-                    outStream.close();
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
-
 
     //设置每日一图动画效果
     private void animateImage() {

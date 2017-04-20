@@ -37,6 +37,7 @@ public class AboutmeActivity extends AppCompatActivity {
         }
     }
 
+    //添加返回按钮点击事件
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navView = (NavigationView) findViewById(R.id.nav_view);
 
+        //导航栏中加载打开抽屉栏图标
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         //设置点击头像事件
-        //这样做就相当于在navView上又天剑了一个header layout布局，所以这样写的话，我们需要在布局文件中把
+        //这样做就相当于在navView上又添加了一个header layout布局，所以这样写的话，我们需要在布局文件中把
         //app:headerLayout="@layout/nav_header"去掉
         View navHeaderView = navView.inflateHeaderView(R.layout.nav_header);
         ImageView headLogin = (ImageView) navHeaderView.findViewById(R.id.head_login_image);
@@ -89,7 +90,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent_login);
             }
         });
-
 
         navView.setCheckedItem(R.id.nav_home);
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -159,7 +159,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         getMenuInflater().inflate(R.menu.menu_note_main_search, menu);
         final MenuItem item_search = menu.findItem(R.id.action_note_main_search);
         final MenuItem item_change_theme = menu.findItem(R.id.action_note_main_change_theme);
@@ -190,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return true;
     }
 
-
+    //导航栏上抽屉栏按钮 以及 更换主题便捷按钮 点击事件
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -201,10 +200,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 ChangeTheme();
                 break;
         }
-
         return true;
     }
 
+    // 通过使用获取系统当前主题样式进行判断，若当前为夜间模式；
+    // 则使用SharePreferences设置 theme 值为 0,并将当前主题设置为 白天模式。
+    // 白天模式即通过同样的方式设置
     public void ChangeTheme() {
         SharedPreferences sp = getSharedPreferences("user_settings", MODE_PRIVATE);
         if ((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
@@ -215,9 +216,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             sp.edit().putInt("theme", 1).apply();
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }
+        // 设置更换主题的动画效果，并重绘当前屏幕
         getWindow().setWindowAnimations(R.style.WindowAnimationFadeInOut);
         recreate();
     }
+
 
     private void backUpFunction() { //备份与恢复功能
         AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
@@ -229,7 +232,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(DialogInterface dialog, int which) {
                 dataBackup();
                 Toast.makeText(MainActivity.this, "备份成功", Toast.LENGTH_SHORT).show();
-
             }
         });
         dialog.setPositiveButton("恢复", new DialogInterface.OnClickListener() {

@@ -52,8 +52,8 @@ public class LookDiaryActivity extends AppCompatActivity {
         notesDB = new NotesDB(this);                //实例化数据库
         dbWriter = notesDB.getWritableDatabase();    //获取到当前可添加的权
 
-        DEFAULT_INT_ID = getIntent().getIntExtra(NotesDB.ID, 0);       //记录所查看的日记 id 号
-        DEFAULT_STRING_ID = Integer.toString(DEFAULT_INT_ID);           //记录未修改前的 ID
+        DEFAULT_INT_ID = getIntent().getIntExtra(NotesDB.ID, 0);       //记录所查看的日记 id 号, int类型
+        DEFAULT_STRING_ID = Integer.toString(DEFAULT_INT_ID);           //记录未修改前的 ID , String类型
         DEFAULT_CONTENT = getIntent().getStringExtra(NotesDB.CONTENT);  //记录未修改前的 CONTENT
 
         initToolbar();  //初始化 Toolbar
@@ -175,10 +175,10 @@ public class LookDiaryActivity extends AppCompatActivity {
         ContentValues cv = new ContentValues();
         cv.put(NotesDB.CONTENT, detail_editText.getText().toString());
 //        cv.put(NotesDB.TIME, getTime().toString());   //这里点击查看日记后，不需要重新修改时间
-
         dbWriter.update(NotesDB.TABLE_NAME, cv, "_id=?", new String[]{Integer.toString(DEFAULT_INT_ID)});
     }
 
+    //获取系统当前时间
 //    public String getTime() {
 //        SimpleDateFormat format = new SimpleDateFormat("HH:mm  yyyy.MM.dd");
 //        Date date = new Date();
